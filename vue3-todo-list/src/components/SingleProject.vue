@@ -79,4 +79,7 @@ export default {
   .project.complete .tick {
     color: #00ce89;
   }
+  .project.complete h3 {
+    text-decoration: line-through;
+  }
 </style>

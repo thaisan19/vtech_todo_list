@@ -13,11 +13,28 @@
       :class="{ active: current === 'ongoing'}"
     >Ongoing</button>
   </nav>
+  <div class="name_filter">
+    <input
+      type="text"
+      v-model="search"
+      placeholder="Search by title:"
+    >
+  </div>
 </template>
 
 <script>
 export default {
   props: ['current'],
+  data () {
+    return {
+      search: ''
+    }
+  },
+  watch: {
+    search (cur) {
+      this.$emit('filterName', cur)
+    }
+  },
   methods: {
     updateFilter(by) {
       this.$emit('filterChange', by)
@@ -41,5 +58,14 @@ export default {
   }
   .filter-nav button.active {
     color: #555;
+  }
+  input {
+    margin-top: 16px;
+    padding: 10px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
   }
 </style>

@@ -1,34 +1,28 @@
 {
   "projects": [
     {
-      "id": 1,
-      "title": "Build a new todolist",
-      "details": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum.",
-      "complete": true
-    },
-    {
-      "id": 2,
-      "title": "Make marketing email",
-      "details": "Lorem ipsum",
-      "complete": false
-    },
-    {
-      "title": "Update the Promo Links",
-      "details": "Make sure all the promo links and coupon codes are up to date!!!!!",
+      "title": "vTech",
+      "details": "coding",
       "complete": true,
-      "id": 5231
+      "id": 9554
     },
     {
-      "title": "Let DoMe",
-      "details": "DoMe as you like",
+      "title": "Coding",
+      "details": "coding",
+      "complete": true,
+      "id": 8728
+    },
+    {
+      "title": "Challenge",
+      "details": "todo_list",
+      "complete": true,
+      "id": 8727
+    },
+    {
+      "title": "No complete",
+      "details": "lasso",
       "complete": false,
-      "id": 6432
-    },
-    {
-      "title": "Do Meta",
-      "details": "Lorem insum",
-      "complete": true,
-      "id": 3017
+      "id": 4321
     }
   ]
 }

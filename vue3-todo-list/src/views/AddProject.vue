@@ -10,29 +10,58 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       title: '',
-      details: ''
+      details: '',
+      projects: []
     }
   },
+  mounted () {
+    fetch('http://localhost:3000/projects')
+      .then(res => res.json())
+      .then(data => {
+        this.projects = data
+        console.log('add-projects', this.projects)
+      })
+      .catch(err => console.log(err))
+  },
   methods: {
-    handleSubmit() {
+    handleSubmit () {
       let project = {
         title: this.title,
         details: this.details,
         complete: false,
         id: Math.floor(Math.random() * 10000)
       }
-      console.log(project)
-  
-     fetch('http://localhost:3000/projects', {
+      console.log('checkstatus', project, this.checkDuplicate(project))
+      if (this.checkDuplicate(project)) {
+        if (confirm('The list with this title already created!\nDo you still want to create a list with this title?') == true) {
+          this.postProject(project)
+        }
+      } else {
+        this.postProject(project)
+      }
+
+    },
+    postProject (project) {
+      fetch('http://localhost:3000/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(project)
       }).then(() => {
         this.$router.push('/')
       }).catch(err => console.log(err))
+    },
+    checkDuplicate (item) {
+      let status = []
+      if (this.projects && this.projects.length) {
+        status = this.projects.filter((i) => {
+          return i.title === item.title
+        })
+      }
+      console.log('status', status)
+      return status.length > 0
     }
   }
 }

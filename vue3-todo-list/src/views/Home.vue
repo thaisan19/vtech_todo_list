@@ -1,10 +1,17 @@
 <template>
   <div class="home">
-    <FilterNav :current="current" @filterChange="current = $event" />
-    <div v-if="projects.length">
-      <div v-for="project in filteredProjects" :key="project.id">
+    <FilterNav :current="current" @filterChange="current = $event" @filterName="filterName" />
+    <div v-if="filterResult.length">
+      <div v-for="project in filterResult" :key="project.id">
       <SingleProject :project="project" @delete="handleDelete" @complete="handleComplete" />
       </div>
+    </div>
+    <div v-else>
+      <h2
+        style="font-style: italic; text-align: center;"
+      >
+        No list found!<br>Create a new one instead!
+    </h2>
     </div>
   </div>
 </template>
@@ -25,6 +32,7 @@ export default {
     return {
       projects: [],
       current: 'all',
+      search: ''
     };
   },
   mounted() {
@@ -44,18 +52,34 @@ export default {
         return project.id === id
       })
       p.complete = !p.complete 
+    },
+    filterName (val) {
+      this.search = val
+      console.log('search', val)
     }
   },
   computed: {
-    filteredProjects() {
+    filteredProjects () {
       if (this.current === 'completed') {
         return this.projects.filter(project => project.complete)
       }
       if (this.current === 'ongoing') {
         return this.projects.filter(project => !project.complete)
       }
+
       return this.projects
-    }
+    },
+    filterResult () {
+      let result = []
+      if (this.search) {
+        result = this.filteredProjects.filter((p) => {
+          return p.title.toLowerCase().includes(this.search.toLowerCase().trim())
+        })
+      } else {
+        result = this.filteredProjects
+      }
+      return result
+    },
   },
 }
 </script>
